@@ -81,6 +81,8 @@ int nonlinear_pk_at_z(
   int last_index;
   short do_ic = _FALSE_;
 
+  fprintf(stdout, "Hi, Maria!\n");
+
   /** - check whether we need the decomposition into contributions from each initial condition */
 
   if ((pk_output == pk_linear) && (pnl->ic_size > 1) && (out_pk_ic != NULL))
@@ -1877,10 +1879,14 @@ int nonlinear_get_k_list(
   class_alloc(pnl->ln_k,pnl->k_size_extra*sizeof(double),pnl->error_message);
 
   /** - fill array of k (not extrapolated) */
+  fprintf(stdout, "fill array of k (not extrapolated)\n");
+
   for (index_k=0; index_k<pnl->k_size; index_k++) {
     k = ppt->k[pnl->index_md_scalars][index_k];
     pnl->k[index_k] = k;
     pnl->ln_k[index_k] = log(k);
+    fprintf(stdout, "k = : %f\n", k);
+    fprintf(stdout, "log(k): %f\n", log(k));
   }
 
   /** - fill additional values of k (extrapolated) */
