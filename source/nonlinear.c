@@ -1877,17 +1877,26 @@ int nonlinear_get_k_list(
   class_alloc(pnl->ln_k,pnl->k_size_extra*sizeof(double),pnl->error_message);
 
   /** - fill array of k (not extrapolated) */
+  fprintf(stdout, "fill array of k (not extrapolated)\n");
+
   for (index_k=0; index_k<pnl->k_size; index_k++) {
     k = ppt->k[pnl->index_md_scalars][index_k];
     pnl->k[index_k] = k;
     pnl->ln_k[index_k] = log(k);
+    fprintf(stdout, "index_k = : %d\n", index_k);
+    fprintf(stdout, "k = : %f\n", pnl->k[index_k]);
+    fprintf(stdout, "log(k): %f\n", pnl->ln_k[index_k]);
   }
 
   /** - fill additional values of k (extrapolated) */
+  fprintf(stdout, "fill additional values of k (extrapolated)\n");
   for (index_k=pnl->k_size; index_k<pnl->k_size_extra; index_k++) {
     exponent = (double)(index_k-(pnl->k_size-1))/ppr->k_per_decade_for_pk;
     pnl->k[index_k] = k * pow(10,exponent);
     pnl->ln_k[index_k] = log(k) + exponent*log(10.);
+    fprintf(stdout, "index_k = : %d\n", index_k);
+    fprintf(stdout, "k = : %f\n", pnl->k[index_k]);
+    fprintf(stdout, "log(k): %f\n", pnl->ln_k[index_k]);
   }
 
   return _SUCCESS_;
